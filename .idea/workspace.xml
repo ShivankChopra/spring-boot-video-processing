@@ -4,15 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a2330e71-71a0-4341-b2f1-4170c9a53173" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/video-editor-library/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/video-editor-library/src/test/java/com/devomate/videoedit/library/FFmpegAdhocTest.java" afterDir="false" />
+    <list default="true" id="a2330e71-71a0-4341-b2f1-4170c9a53173" name="Changes" comment="Initial commit : Project structure and ffmpeg dependency added and tested">
+      <change afterPath="$PROJECT_DIR$/video-editor-library/src/main/java/com/devomate/videoedit/library/FFmpegCliWrapperVideoEditor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/video-editor-library/src/main/java/com/devomate/videoedit/library/VideoEditor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/video-editor-library/src/test/java/com/devomate/videoedit/library/FFmpegCliWrapperVideoEditorTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/video-editor-library/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/video-editor-library/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/video-editor-library/src/test/java/com/devomate/videoedit/library/FFmpegAdhocTest.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,16 +20,32 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Interface" />
         <option value="Class" />
+        <option value="JUnit4 Test Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 6
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "ShivankChopra"
+  }
 }]]></component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="5990611a-e80a-4692-b98e-7c36e3a32f28" />
+        <option name="url" value="https://github.com/ShivankChopra/spring-boot-video-processing.git" />
+      </UrlAndAccount>
+    </option>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
   <component name="ProjectId" id="2fhEIWlBxXllTayrkdADXM2zMgt" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -45,12 +59,22 @@
     "ASKED_ADD_EXTERNAL_FILES": "true",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit4",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4": "",
+    "git-widget-placeholder": "master",
     "jdk.selected.JAVA_MODULE": "21",
     "settings.editor.selected.configurable": "preferences.pluginManager"
   }
 }]]></component>
-  <component name="RunManager">
+  <component name="RecentsManager">
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="com.devomate.videoedit.library" />
+    </key>
+  </component>
+  <component name="RunManager" selected="JUnit.FFmpegCliWrapperVideoEditorTest">
     <configuration name="FFmpegAdhocTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="com.devomate.videoedit.library.FFmpegAdhocTest" />
       <module name="video-editor-library" />
@@ -64,8 +88,41 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="FFmpegCliWrapperVideoEditorTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="video-editor-library" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.devomate.videoedit.library.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.devomate.videoedit.library" />
+      <option name="MAIN_CLASS_NAME" value="com.devomate.videoedit.library.FFmpegCliWrapperVideoEditorTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="FFmpegCliWrapperVideoEditorTest.testCutVideo" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="video-editor-library" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.devomate.videoedit.library.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.devomate.videoedit.library" />
+      <option name="MAIN_CLASS_NAME" value="com.devomate.videoedit.library.FFmpegCliWrapperVideoEditorTest" />
+      <option name="METHOD_NAME" value="testCutVideo" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.FFmpegCliWrapperVideoEditorTest" />
+        <item itemvalue="JUnit.FFmpegCliWrapperVideoEditorTest.testCutVideo" />
         <item itemvalue="Application.FFmpegAdhocTest" />
       </list>
     </recent_temporary>
@@ -79,6 +136,19 @@
       <option name="presentableId" value="Default" />
       <updated>1714244829877</updated>
     </task>
+    <task id="LOCAL-00001" summary="Initial commit : Project structure and ffmpeg dependency added and tested">
+      <option name="closed" value="true" />
+      <created>1714250436331</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1714250436331</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Initial commit : Project structure and ffmpeg dependency added and tested" />
+    <option name="LAST_COMMIT_MESSAGE" value="Initial commit : Project structure and ffmpeg dependency added and tested" />
   </component>
 </project>
