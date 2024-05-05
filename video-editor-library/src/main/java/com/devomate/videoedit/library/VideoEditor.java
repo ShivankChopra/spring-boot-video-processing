@@ -15,4 +15,6 @@ public interface VideoEditor {
     void addImgWatermark(String videoLocation, String outputLocation, String imgLocation);
 
     void addAudio(String videoLocation, String outputLocation, String audioLocation);
+
+    void convertToLowResolution(String videoLocation, String outputLocation);
 }

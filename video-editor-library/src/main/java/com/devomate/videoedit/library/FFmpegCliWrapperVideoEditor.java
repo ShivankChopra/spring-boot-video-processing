@@ -1,10 +1,12 @@
 package com.devomate.videoedit.library;
 
-import java.io.IOException;
-
-import net.bramp.ffmpeg.*;
+import net.bramp.ffmpeg.FFmpeg;
+import net.bramp.ffmpeg.FFmpegExecutor;
+import net.bramp.ffmpeg.FFprobe;
 import net.bramp.ffmpeg.builder.FFmpegBuilder;
 import net.bramp.ffmpeg.probe.FFmpegProbeResult;
+
+import java.io.IOException;
 
 public class FFmpegCliWrapperVideoEditor implements VideoEditor {
 
@@ -38,13 +40,7 @@ public class FFmpegCliWrapperVideoEditor implements VideoEditor {
         FFmpegBuilder fb = new FFmpegBuilder();
         fb.setInput(videoLocation);
         fb.addOutput(outputLocation);
-        fb.setComplexFilter(
-                "drawbox=y=ih-ih/10:color=black@0.5:width=iw:height=40," +
-                "drawtext=text='" + text + "'" +
-                ":fontsize=24" +
-                ":fontcolor=white" +
-                ":x=(w-tw)/2:y=(h-th-10):box=1:boxcolor=black@0.5:boxborderw=5"
-        );
+        fb.setComplexFilter("drawbox=y=ih-ih/10:color=black@0.5:width=iw:height=40," + "drawtext=text='" + text + "'" + ":fontsize=24" + ":fontcolor=white" + ":x=(w-tw)/2:y=(h-th-10):box=1:boxcolor=black@0.5:boxborderw=5");
         this.ffmpegExecutor.createJob(fb).run();
     }
 
@@ -63,15 +59,17 @@ public class FFmpegCliWrapperVideoEditor implements VideoEditor {
         FFmpegBuilder fb = new FFmpegBuilder();
         fb.setInput(videoLocation);
         fb.addInput(audioLocation);
-        fb
-                .addOutput(outputLocation)
-                .setVideoCodec("copy")
-                .setAudioCodec("aac")
-                .addExtraArgs("-map", "0:v:0")
-                .addExtraArgs("-map", "1:a:0")
-                .setStrict(FFmpegBuilder.Strict.EXPERIMENTAL)
-                .done();
+        fb.overrideOutputFiles(true);
+        fb.addOutput(outputLocation).setVideoCodec("copy").setAudioCodec("aac").addExtraArgs("-map", "0:v:0").addExtraArgs("-map", "1:a:0").setStrict(FFmpegBuilder.Strict.EXPERIMENTAL).done();
         this.ffmpegExecutor.createJob(fb).run();
     }
 
+    @Override
+    public void convertToLowResolution(String videoLocation, String outputLocation) {
+        FFmpegBuilder fb = new FFmpegBuilder();
+        fb.setInput(videoLocation);
+        fb.overrideOutputFiles(true);
+        fb.addOutput(outputLocation).setVideoFilter("scale=-2:480").setAudioCodec("copy").done();
+        this.ffmpegExecutor.createJob(fb).run();
+    }
 }
