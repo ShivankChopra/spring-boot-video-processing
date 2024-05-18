@@ -10,6 +10,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>video-editor-library</module>
+        <module>video-process-microservice</module>
     </modules>
 
     <properties>

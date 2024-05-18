@@ -4,11 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a2330e71-71a0-4341-b2f1-4170c9a53173" name="Changes" comment="Video editor library : Added methods for adding text watermark, image watermark, and audio stream">
+    <list default="true" id="a2330e71-71a0-4341-b2f1-4170c9a53173" name="Changes" comment="Video editor library : Added function for converting video to low resolution, minor code refactor.">
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/video-process-microservice/pom.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/video-process-microservice/src/main/java/com/devomate/videoedit/microservice/SpringBootApp.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/video-process-microservice/src/main/java/com/devomate/videoedit/microservice/config/RabbitMqConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/video-process-microservice/src/main/java/com/devomate/videoedit/microservice/consumer/TaskConsumer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/video-process-microservice/src/main/java/com/devomate/videoedit/microservice/service/VideoProcessingService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/video-process-microservice/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/video-editor-library/src/main/java/com/devomate/videoedit/library/FFmpegCliWrapperVideoEditor.java" beforeDir="false" afterPath="$PROJECT_DIR$/video-editor-library/src/main/java/com/devomate/videoedit/library/FFmpegCliWrapperVideoEditor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/video-editor-library/src/main/java/com/devomate/videoedit/library/VideoEditor.java" beforeDir="false" afterPath="$PROJECT_DIR$/video-editor-library/src/main/java/com/devomate/videoedit/library/VideoEditor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/video-editor-library/src/test/java/com/devomate/videoedit/library/FFmpegCliWrapperVideoEditorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/video-editor-library/src/test/java/com/devomate/videoedit/library/FFmpegCliWrapperVideoEditorTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,8 +26,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
-        <option value="Class" />
         <option value="JUnit4 Test Class" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -33,14 +40,12 @@
     &quot;assignee&quot;: &quot;ShivankChopra&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">
-    <option name="selectedUrlAndAccountId">
-      <UrlAndAccount>
-        <option name="accountId" value="5990611a-e80a-4692-b98e-7c36e3a32f28" />
-        <option name="url" value="https://github.com/ShivankChopra/spring-boot-video-processing.git" />
-      </UrlAndAccount>
-    </option>
-  </component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/ShivankChopra/spring-boot-video-processing.git&quot;,
+    &quot;accountId&quot;: &quot;5990611a-e80a-4692-b98e-7c36e3a32f28&quot;
+  }
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 6
 }</component>
@@ -52,18 +57,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit4&quot;,
-    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4&quot;: &quot;&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;21&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.fonts.default&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit4",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4": "",
+    "git-widget-placeholder": "master",
+    "jdk.selected.JAVA_MODULE": "21",
+    "kotlin-language-version-configured": "true",
+    "settings.editor.selected.configurable": "preferences.pluginManager"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />
@@ -195,14 +202,23 @@
       <option name="project" value="LOCAL" />
       <updated>1714516174157</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Video editor library : Added function for converting video to low resolution, minor code refactor.">
+      <option name="closed" value="true" />
+      <created>1714917478317</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1714917478317</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Initial commit : Project structure and ffmpeg dependency added and tested" />
     <MESSAGE value="Video editor library : Setup basic interface - class structure, and JUnit tests, tested video cutting, removed adhoc test" />
     <MESSAGE value="Video editor library : Added methods for adding text watermark, image watermark, and audio stream" />
-    <option name="LAST_COMMIT_MESSAGE" value="Video editor library : Added methods for adding text watermark, image watermark, and audio stream" />
+    <MESSAGE value="Video editor library : Added function for converting video to low resolution, minor code refactor." />
+    <option name="LAST_COMMIT_MESSAGE" value="Video editor library : Added function for converting video to low resolution, minor code refactor." />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
