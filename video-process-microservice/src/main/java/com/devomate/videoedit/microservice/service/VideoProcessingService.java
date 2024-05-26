@@ -1,7 +1,7 @@
 package com.devomate.videoedit.microservice.service;
 
 import com.devomate.videoedit.library.FFmpegCliWrapperVideoEditor;
-import com.devomate.videoedit.library.VideoEditor;
+import com.devomate.videoedit.library.VideoEditorOld;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +17,7 @@ public class VideoProcessingService {
     private String ffprobePath;
 
     // @TODO: autowire using config?
-    private final VideoEditor videoEditor;
+    private final VideoEditorOld videoEditor;
 
     public VideoProcessingService() throws IOException {
         videoEditor = new FFmpegCliWrapperVideoEditor(ffmpegPath, ffprobePath);

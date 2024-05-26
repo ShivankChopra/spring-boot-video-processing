@@ -14,7 +14,7 @@ public class FFmpegCliWrapperVideoEditorTest {
 
     @Test
     public void testCutVideo() throws IOException {
-        VideoEditor ve = new FFmpegCliWrapperVideoEditor(FFMPEG_PATH, FFPROBE_PATH);
+        VideoEditorOld ve = new FFmpegCliWrapperVideoEditor(FFMPEG_PATH, FFPROBE_PATH);
 
         final String videoLocation = System.getProperty("user.dir") + "/resources/test.mp4";
         final String outputLocation = System.getProperty("user.dir") + "/resources/test_out.mp4";
@@ -30,7 +30,7 @@ public class FFmpegCliWrapperVideoEditorTest {
 
     @Test
     public void testAddTextWatermark() throws IOException {
-        VideoEditor ve = new FFmpegCliWrapperVideoEditor(FFMPEG_PATH, FFPROBE_PATH);
+        VideoEditorOld ve = new FFmpegCliWrapperVideoEditor(FFMPEG_PATH, FFPROBE_PATH);
         final String videoLocation = System.getProperty("user.dir") + "/resources/test.mp4";
         final String outputLocation = System.getProperty("user.dir") + "/resources/test_out.mp4";
         ve.addTextWatermark(videoLocation, outputLocation, "Devomate");
@@ -38,7 +38,7 @@ public class FFmpegCliWrapperVideoEditorTest {
 
     @Test
     public void testAddImgWatermark() throws IOException {
-        VideoEditor ve = new FFmpegCliWrapperVideoEditor(FFMPEG_PATH, FFPROBE_PATH);
+        VideoEditorOld ve = new FFmpegCliWrapperVideoEditor(FFMPEG_PATH, FFPROBE_PATH);
         final String videoLocation = System.getProperty("user.dir") + "/resources/test.mp4";
         final String outputLocation = System.getProperty("user.dir") + "/resources/test_out.mp4";
         final String imgLocation = System.getProperty("user.dir") + "/resources/devomate_img.webp";
@@ -47,7 +47,7 @@ public class FFmpegCliWrapperVideoEditorTest {
 
     @Test
     public void testAddAudio() throws IOException {
-        VideoEditor ve = new FFmpegCliWrapperVideoEditor(FFMPEG_PATH, FFPROBE_PATH);
+        VideoEditorOld ve = new FFmpegCliWrapperVideoEditor(FFMPEG_PATH, FFPROBE_PATH);
         final String videoLocation = System.getProperty("user.dir") + "/resources/test.mp4";
         final String outputLocation = System.getProperty("user.dir") + "/resources/test_out.mp4";
         final String audioLocation = System.getProperty("user.dir") + "/resources/test.mp3";
@@ -56,7 +56,7 @@ public class FFmpegCliWrapperVideoEditorTest {
 
     @Test
     public void testConvertToLowResolution() throws IOException {
-        VideoEditor ve = new FFmpegCliWrapperVideoEditor(FFMPEG_PATH, FFPROBE_PATH);
+        VideoEditorOld ve = new FFmpegCliWrapperVideoEditor(FFMPEG_PATH, FFPROBE_PATH);
         final String videoLocation = System.getProperty("user.dir") + "/resources/test.mp4";
         final String outputLocation = System.getProperty("user.dir") + "/resources/test_low_res_480p.mp4";
         ve.convertToLowResolution(videoLocation, outputLocation);

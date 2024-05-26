@@ -1,20 +1,49 @@
 package com.devomate.videoedit.library;
 
-import net.bramp.ffmpeg.probe.FFmpegProbeResult;
-
-import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.Map;
 
 public interface VideoEditor {
 
-    FFmpegProbeResult probeVideo(String videoLocation) throws IOException;
+    OutputStream processVideo(InputStream videoInput, Map<String, InputStream> additionalInputs, Map<EditAction, EditActionValue> edits);
 
-    void cutVideo(String videoLocation, String outputLocation, int startTime, int endTime);
+    public enum EditAction {
+        CUT_VIDEO,
+        ADD_AUDIO,
+        ADD_WATERMARK,
+        ADD_TEXT_WATERMARK
+    }
 
-    void addTextWatermark(String videoLocation, String outputLocation, String text);
+    public class EditActionValue {
+        private int intValue;
 
-    void addImgWatermark(String videoLocation, String outputLocation, String imgLocation);
+        private String stringValue;
 
-    void addAudio(String videoLocation, String outputLocation, String audioLocation);
+        private int[] intRangeValue;
 
-    void convertToLowResolution(String videoLocation, String outputLocation);
+        public void setIntValue(int intValue) {
+            this.intValue = intValue;
+        }
+
+        public void setStringValue(String stringValue) {
+            this.stringValue = stringValue;
+        }
+
+        public void setIntRangeValue(int[] intRangeValue) {
+            this.intRangeValue = intRangeValue;
+        }
+
+        public int getIntValue() {
+            return intValue;
+        }
+
+        public String getStringValue() {
+            return stringValue;
+        }
+
+        public int[] getIntRangeValue() {
+            return intRangeValue;
+        }
+    }
 }
