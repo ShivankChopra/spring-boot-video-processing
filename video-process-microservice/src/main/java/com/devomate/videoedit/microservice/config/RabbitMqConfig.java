@@ -51,10 +51,13 @@ public class RabbitMqConfig {
 
     @Bean
     public SimpleRabbitListenerContainerFactory rabbitListenerContainerFactory(ConnectionFactory connectionFactory) {
-        SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
+        int cpuCores = Runtime.getRuntime().availableProcessors();
+
+        var factory = new SimpleRabbitListenerContainerFactory();
+
         factory.setConnectionFactory(connectionFactory);
-        int cores = Runtime.getRuntime().availableProcessors();
-        factory.setConcurrentConsumers(cores);
+        factory.setConcurrentConsumers(cpuCores);
+
         return factory;
     }
 }
