@@ -5,13 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a2330e71-71a0-4341-b2f1-4170c9a53173" name="Changes" comment="Video process microservice : Minor refactor">
-      <change afterPath="$PROJECT_DIR$/video-editor-library/src/main/java/com/devomate/videoedit/library/FFmpegVideoEditor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/video-editor-library/src/main/java/com/devomate/videoedit/library/VideoEditorOld.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/video-editor-library/src/main/java/com/devomate/videoedit/library/FFmpegCliWrapperVideoEditor.java" beforeDir="false" afterPath="$PROJECT_DIR$/video-editor-library/src/main/java/com/devomate/videoedit/library/FFmpegCliWrapperVideoEditor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/video-editor-library/src/main/java/com/devomate/videoedit/library/FFmpegVideoEditor.java" beforeDir="false" afterPath="$PROJECT_DIR$/video-editor-library/src/main/java/com/devomate/videoedit/library/FFmpegVideoEditor.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/video-editor-library/src/main/java/com/devomate/videoedit/library/VideoEditor.java" beforeDir="false" afterPath="$PROJECT_DIR$/video-editor-library/src/main/java/com/devomate/videoedit/library/VideoEditor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/video-editor-library/src/test/java/com/devomate/videoedit/library/FFmpegCliWrapperVideoEditorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/video-editor-library/src/test/java/com/devomate/videoedit/library/FFmpegCliWrapperVideoEditorTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/video-process-microservice/src/main/java/com/devomate/videoedit/microservice/service/VideoProcessingService.java" beforeDir="false" afterPath="$PROJECT_DIR$/video-process-microservice/src/main/java/com/devomate/videoedit/microservice/service/VideoProcessingService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,20 +50,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit4",
-    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4": "",
-    "git-widget-placeholder": "video-library-refactor",
-    "jdk.selected.JAVA_MODULE": "21",
-    "kotlin-language-version-configured": "true",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit4&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit4&quot;: &quot;&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;video-library-refactor&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;21&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.Recents.Supers">
       <recent name="" />

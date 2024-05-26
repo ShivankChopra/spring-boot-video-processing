@@ -6,13 +6,14 @@ import java.util.Map;
 
 public interface VideoEditor {
 
-    OutputStream processVideo(InputStream videoInput, Map<String, InputStream> additionalInputs, Map<EditAction, EditActionValue> edits);
+    boolean processVideo(InputStream videoInput, OutputStream videoOutput, Map<EditAction, EditActionValue> edits, Map<String, InputStream> additionalInputs) throws InterruptedException;
 
     public enum EditAction {
         CUT_VIDEO,
         ADD_AUDIO,
         ADD_WATERMARK,
-        ADD_TEXT_WATERMARK
+        ADD_TEXT_WATERMARK,
+        CONVERT_TO_LOW_RES
     }
 
     public class EditActionValue {
