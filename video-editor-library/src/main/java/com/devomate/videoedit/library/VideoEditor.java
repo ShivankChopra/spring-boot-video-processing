@@ -1,12 +1,13 @@
 package com.devomate.videoedit.library;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Map;
 
 public interface VideoEditor {
 
-    boolean processVideo(InputStream videoInput, OutputStream videoOutput, Map<EditAction, EditActionValue> edits, Map<String, InputStream> additionalInputs) throws InterruptedException;
+    void processVideo(InputStream videoInput, OutputStream videoOutput, Map<EditAction, EditActionValue> edits, Map<String, InputStream> additionalInputs) throws IOException;
 
     public enum EditAction {
         CUT_VIDEO,

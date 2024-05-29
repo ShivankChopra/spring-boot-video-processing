@@ -12,13 +12,8 @@ import java.nio.channels.ReadableByteChannel;
 import java.nio.channels.WritableByteChannel;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.attribute.PosixFilePermissions;
 import java.util.Date;
 import java.util.Map;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 public class FFmpegVideoEditor implements VideoEditor {
 
@@ -29,14 +24,6 @@ public class FFmpegVideoEditor implements VideoEditor {
         FFmpeg ffmpeg = new FFmpeg(ffmpegPath);
         this.ffprobe = new FFprobe(ffprobePath);
         this.ffmpegExecutor = new FFmpegExecutor(ffmpeg, this.ffprobe);
-    }
-
-    private static void createNamedPipe(String pipeName) throws IOException {
-        Path pipePath = Paths.get(pipeName);
-        if (Files.notExists(pipePath))
-            Files.createFile(pipePath);
-
-        Files.setPosixFilePermissions(pipePath, PosixFilePermissions.fromString("rw-rw-rw-"));
     }
 
     private static void transferData(InputStream inputStream, OutputStream outputStream) throws IOException {
@@ -53,16 +40,20 @@ public class FFmpegVideoEditor implements VideoEditor {
     }
 
     @Override
-    public boolean processVideo(InputStream videoInput, OutputStream videoOutput, Map<EditAction, EditActionValue> edits, Map<String, InputStream> additionalInputs) throws InterruptedException {
-        long currentTs = new Date().getTime();
+    public void processVideo(InputStream videoInput, OutputStream videoOutput, Map<EditAction, EditActionValue> edits, Map<String, InputStream> additionalInputs) throws IOException {
+        String currentTs = Long.toString(new Date().getTime());
 
-        String inputFilePipePath = System.getProperty("java.io.tmpdir") + "/in_" + currentTs;
-        String outputFilePipePath = System.getProperty("java.io.tmpdir") + "/out_" + currentTs;
+        Path tempInput = Files.createTempFile("in_" + currentTs, ".mp4");
+        Path tempOutput = Files.createTempFile("out_" + currentTs, ".mp4");
+
+        try (FileOutputStream fos = new FileOutputStream(tempInput.toFile())) {
+            videoInput.transferTo(fos);
+        }
 
         FFmpegBuilder fb = new FFmpegBuilder();
-        fb.setInput(inputFilePipePath);
+        fb.setInput(tempInput.toString());
         fb.overrideOutputFiles(true);
-        fb.addOutput(outputFilePipePath);
+        fb.addOutput(tempOutput.toString());
 
         if (edits.containsKey(EditAction.CUT_VIDEO)) {
             int[] timeRange = edits.get(EditAction.CUT_VIDEO).getIntRangeValue();
@@ -71,26 +62,13 @@ public class FFmpegVideoEditor implements VideoEditor {
             fb.addExtraArgs("-to", Integer.toString(timeRange[1]));
         }
 
-        ExecutorService executor = Executors.newFixedThreadPool(2);
-
-        executor.submit(() -> {
-            try (OutputStream pipeOutputStream = new FileOutputStream(inputFilePipePath)) {
-                transferData(videoInput, pipeOutputStream);
-            } catch (IOException e) {
-                System.out.println(e.toString());
-            }
-        });
-
-        executor.submit(() -> {
-            try (InputStream pipeInputStream = new FileInputStream(outputFilePipePath)) {
-                transferData(pipeInputStream, videoOutput);
-            } catch (IOException e) {
-                System.out.println(e.toString());
-            }
-        });
-
         this.ffmpegExecutor.createJob(fb).run();
 
-        return executor.awaitTermination(15, TimeUnit.MINUTES);
+        try (FileInputStream fis = new FileInputStream(tempOutput.toFile())) {
+            fis.transferTo(videoOutput);
+        }
+
+        Files.delete(tempInput);
+        Files.delete(tempOutput);
     }
 }

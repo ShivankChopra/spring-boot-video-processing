@@ -1,11 +1,12 @@
 package com.devomate.videoedit.library;
 
-import net.bramp.ffmpeg.probe.FFmpegProbeResult;
 import org.junit.Test;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
-
-import static org.junit.Assert.assertEquals;
+import java.util.HashMap;
+import java.util.Map;
 
 public class FFmpegCliWrapperVideoEditorTest {
 
@@ -14,17 +15,22 @@ public class FFmpegCliWrapperVideoEditorTest {
 
     @Test
     public void testCutVideo() throws IOException {
-        VideoEditorOld ve = new FFmpegCliWrapperVideoEditor(FFMPEG_PATH, FFPROBE_PATH);
+        VideoEditor ve = new FFmpegVideoEditor(FFMPEG_PATH, FFPROBE_PATH);
 
         final String videoLocation = System.getProperty("user.dir") + "/resources/test.mp4";
         final String outputLocation = System.getProperty("user.dir") + "/resources/test_out.mp4";
 
-        ve.cutVideo(videoLocation, outputLocation, 0, 3);
+        try (FileInputStream videoStream = new FileInputStream(videoLocation);
+             FileOutputStream outputStream = new FileOutputStream(outputLocation)
+        ) {
+            Map<VideoEditor.EditAction, VideoEditor.EditActionValue> edits = new HashMap<>();
 
-        FFmpegProbeResult result = ve.probeVideo(outputLocation);
+            VideoEditor.EditActionValue rangeVal = new VideoEditor.EditActionValue();
+            rangeVal.setIntRangeValue(new int[] {0, 3});
 
-        for (int i = 0; i < result.streams.size(); i++) {
-            assertEquals(3, (long) result.streams.get(i).duration);
+            edits.put(VideoEditor.EditAction.CUT_VIDEO, rangeVal);
+
+            ve.processVideo(videoStream, outputStream, edits, null);
         }
     }
 
