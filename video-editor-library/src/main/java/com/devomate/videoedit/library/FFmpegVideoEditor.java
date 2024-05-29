@@ -6,10 +6,6 @@ import net.bramp.ffmpeg.FFprobe;
 import net.bramp.ffmpeg.builder.FFmpegBuilder;
 
 import java.io.*;
-import java.nio.ByteBuffer;
-import java.nio.channels.Channels;
-import java.nio.channels.ReadableByteChannel;
-import java.nio.channels.WritableByteChannel;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Date;
@@ -24,19 +20,6 @@ public class FFmpegVideoEditor implements VideoEditor {
         FFmpeg ffmpeg = new FFmpeg(ffmpegPath);
         this.ffprobe = new FFprobe(ffprobePath);
         this.ffmpegExecutor = new FFmpegExecutor(ffmpeg, this.ffprobe);
-    }
-
-    private static void transferData(InputStream inputStream, OutputStream outputStream) throws IOException {
-        ReadableByteChannel inputChannel = Channels.newChannel(inputStream);
-        WritableByteChannel outputChannel = Channels.newChannel(outputStream);
-
-        ByteBuffer buffer = ByteBuffer.allocateDirect(16 * 1024);
-
-        while (inputChannel.read(buffer) != -1) {
-            buffer.flip();
-            outputChannel.write(buffer);
-            buffer.clear();
-        }
     }
 
     @Override
