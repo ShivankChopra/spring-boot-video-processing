@@ -5,6 +5,7 @@ import org.junit.Test;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,23 +15,28 @@ public class FFmpegCliWrapperVideoEditorTest {
     private final String FFPROBE_PATH = "/opt/homebrew/bin/ffprobe";
 
     @Test
-    public void testCutVideo() throws IOException {
+    public void testProcessVideo() throws IOException {
         VideoEditor ve = new FFmpegVideoEditor(FFMPEG_PATH, FFPROBE_PATH);
 
         final String videoLocation = System.getProperty("user.dir") + "/resources/test.mp4";
         final String outputLocation = System.getProperty("user.dir") + "/resources/test_out.mp4";
+        final String audioLocation = System.getProperty("user.dir") + "/resources/test.mp3";
 
         try (FileInputStream videoStream = new FileInputStream(videoLocation);
-             FileOutputStream outputStream = new FileOutputStream(outputLocation)
+             FileOutputStream outputStream = new FileOutputStream(outputLocation);
+             FileInputStream audioStream = new FileInputStream(audioLocation)
         ) {
             Map<VideoEditor.EditAction, VideoEditor.EditActionValue> edits = new HashMap<>();
 
-            VideoEditor.EditActionValue rangeVal = new VideoEditor.EditActionValue();
-            rangeVal.setIntRangeValue(new int[] {0, 3});
+            edits.put(VideoEditor.EditAction.CUT_VIDEO, new VideoEditor.EditActionValue(new int[] {0, 3}));
+            edits.put(VideoEditor.EditAction.CONVERT_TO_LOW_RES, null);
+            edits.put(VideoEditor.EditAction.ADD_AUDIO, new VideoEditor.EditActionValue("bg_music"));
 
-            edits.put(VideoEditor.EditAction.CUT_VIDEO, rangeVal);
+            Map<String, InputStream> additionalInputs = new HashMap<>();
 
-            ve.processVideo(videoStream, outputStream, edits, null);
+            additionalInputs.put("bg_music", audioStream);
+
+            ve.processVideo(videoStream, outputStream, edits, additionalInputs);
         }
     }
 

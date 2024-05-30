@@ -24,6 +24,18 @@ public interface VideoEditor {
 
         private int[] intRangeValue;
 
+        public EditActionValue(int intValue) {
+            this.intValue = intValue;
+        }
+
+        public EditActionValue(String stringValue) {
+            this.stringValue = stringValue;
+        }
+
+        public EditActionValue(int[] intRangeValue) {
+            this.intRangeValue = intRangeValue;
+        }
+
         public void setIntValue(int intValue) {
             this.intValue = intValue;
         }
