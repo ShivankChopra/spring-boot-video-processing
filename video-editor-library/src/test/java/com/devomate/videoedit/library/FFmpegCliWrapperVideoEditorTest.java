@@ -28,13 +28,13 @@ public class FFmpegCliWrapperVideoEditorTest {
         ) {
             Map<VideoEditor.EditAction, VideoEditor.EditActionValue> edits = new HashMap<>();
 
-            edits.put(VideoEditor.EditAction.CUT_VIDEO, new VideoEditor.EditActionValue(new int[] {0, 3}));
+            edits.put(VideoEditor.EditAction.CUT_VIDEO, new VideoEditor.EditActionValue(new int[]{0, 3}));
             edits.put(VideoEditor.EditAction.CONVERT_TO_LOW_RES, null);
-            edits.put(VideoEditor.EditAction.ADD_AUDIO, new VideoEditor.EditActionValue("bg_music"));
 
             Map<String, InputStream> additionalInputs = new HashMap<>();
 
             additionalInputs.put("bg_music", audioStream);
+            edits.put(VideoEditor.EditAction.ADD_AUDIO, new VideoEditor.EditActionValue("bg_music"));
 
             ve.processVideo(videoStream, outputStream, edits, additionalInputs);
         }
