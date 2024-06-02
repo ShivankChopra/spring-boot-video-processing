@@ -52,14 +52,16 @@ public class FFmpegVideoEditor implements VideoEditor {
         }
 
         if (edits.containsKey(EditAction.CONVERT_TO_LOW_RES)) {
+            String complexFilter = "[0:v]scale=-2:480[v];";
+
             if (edits.containsKey(EditAction.ADD_AUDIO)) {
-                fb.setComplexFilter("[0:v]scale=-2:480[v]; [0:a][1:a]amix=inputs=2[a];");
-                fob.addExtraArgs("-map", "[v]");
+                complexFilter += " [0:a][1:a]amix=inputs=2[a];";
                 fob.addExtraArgs("-map", "[a]");
-                fob.setAudioCodec("aac");
-            } else {
-                fob.setVideoFilter("scale=-2:480").setAudioCodec("copy");
             }
+
+            fb.setComplexFilter(complexFilter);
+            fob.addExtraArgs("-map", "[v]");
+            fob.setAudioCodec("aac");
         }
 
         if (edits.containsKey(EditAction.ADD_AUDIO)) {
