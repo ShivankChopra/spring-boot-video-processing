@@ -1,11 +1,13 @@
 package com.devomate.videoedit.library;
 
-import net.bramp.ffmpeg.probe.FFmpegProbeResult;
 import org.junit.Test;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
-
-import static org.junit.Assert.assertEquals;
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 public class FFmpegCliWrapperVideoEditorTest {
 
@@ -13,24 +15,34 @@ public class FFmpegCliWrapperVideoEditorTest {
     private final String FFPROBE_PATH = "/opt/homebrew/bin/ffprobe";
 
     @Test
-    public void testCutVideo() throws IOException {
-        VideoEditor ve = new FFmpegCliWrapperVideoEditor(FFMPEG_PATH, FFPROBE_PATH);
+    public void testProcessVideo() throws IOException {
+        VideoEditor ve = new FFmpegVideoEditor(FFMPEG_PATH, FFPROBE_PATH);
 
         final String videoLocation = System.getProperty("user.dir") + "/resources/test.mp4";
         final String outputLocation = System.getProperty("user.dir") + "/resources/test_out.mp4";
+        final String audioLocation = System.getProperty("user.dir") + "/resources/test.mp3";
 
-        ve.cutVideo(videoLocation, outputLocation, 0, 3);
+        try (FileInputStream videoStream = new FileInputStream(videoLocation);
+             FileOutputStream outputStream = new FileOutputStream(outputLocation);
+             FileInputStream audioStream = new FileInputStream(audioLocation)
+        ) {
+            Map<VideoEditor.EditAction, VideoEditor.EditActionValue> edits = new HashMap<>();
 
-        FFmpegProbeResult result = ve.probeVideo(outputLocation);
+            edits.put(VideoEditor.EditAction.CUT_VIDEO, new VideoEditor.EditActionValue(new int[]{0, 3}));
+            edits.put(VideoEditor.EditAction.CONVERT_TO_LOW_RES, null);
 
-        for (int i = 0; i < result.streams.size(); i++) {
-            assertEquals(3, (long) result.streams.get(i).duration);
+            Map<String, InputStream> additionalInputs = new HashMap<>();
+
+            additionalInputs.put("bg_music", audioStream);
+            edits.put(VideoEditor.EditAction.ADD_AUDIO, new VideoEditor.EditActionValue("bg_music"));
+
+            ve.processVideo(videoStream, outputStream, edits, additionalInputs);
         }
     }
 
     @Test
     public void testAddTextWatermark() throws IOException {
-        VideoEditor ve = new FFmpegCliWrapperVideoEditor(FFMPEG_PATH, FFPROBE_PATH);
+        VideoEditorOld ve = new FFmpegCliWrapperVideoEditor(FFMPEG_PATH, FFPROBE_PATH);
         final String videoLocation = System.getProperty("user.dir") + "/resources/test.mp4";
         final String outputLocation = System.getProperty("user.dir") + "/resources/test_out.mp4";
         ve.addTextWatermark(videoLocation, outputLocation, "Devomate");
@@ -38,7 +50,7 @@ public class FFmpegCliWrapperVideoEditorTest {
 
     @Test
     public void testAddImgWatermark() throws IOException {
-        VideoEditor ve = new FFmpegCliWrapperVideoEditor(FFMPEG_PATH, FFPROBE_PATH);
+        VideoEditorOld ve = new FFmpegCliWrapperVideoEditor(FFMPEG_PATH, FFPROBE_PATH);
         final String videoLocation = System.getProperty("user.dir") + "/resources/test.mp4";
         final String outputLocation = System.getProperty("user.dir") + "/resources/test_out.mp4";
         final String imgLocation = System.getProperty("user.dir") + "/resources/devomate_img.webp";
@@ -47,7 +59,7 @@ public class FFmpegCliWrapperVideoEditorTest {
 
     @Test
     public void testAddAudio() throws IOException {
-        VideoEditor ve = new FFmpegCliWrapperVideoEditor(FFMPEG_PATH, FFPROBE_PATH);
+        VideoEditorOld ve = new FFmpegCliWrapperVideoEditor(FFMPEG_PATH, FFPROBE_PATH);
         final String videoLocation = System.getProperty("user.dir") + "/resources/test.mp4";
         final String outputLocation = System.getProperty("user.dir") + "/resources/test_out.mp4";
         final String audioLocation = System.getProperty("user.dir") + "/resources/test.mp3";
@@ -56,7 +68,7 @@ public class FFmpegCliWrapperVideoEditorTest {
 
     @Test
     public void testConvertToLowResolution() throws IOException {
-        VideoEditor ve = new FFmpegCliWrapperVideoEditor(FFMPEG_PATH, FFPROBE_PATH);
+        VideoEditorOld ve = new FFmpegCliWrapperVideoEditor(FFMPEG_PATH, FFPROBE_PATH);
         final String videoLocation = System.getProperty("user.dir") + "/resources/test.mp4";
         final String outputLocation = System.getProperty("user.dir") + "/resources/test_low_res_480p.mp4";
         ve.convertToLowResolution(videoLocation, outputLocation);

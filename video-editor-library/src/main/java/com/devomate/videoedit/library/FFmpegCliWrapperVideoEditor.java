@@ -8,7 +8,7 @@ import net.bramp.ffmpeg.probe.FFmpegProbeResult;
 
 import java.io.IOException;
 
-public class FFmpegCliWrapperVideoEditor implements VideoEditor {
+public class FFmpegCliWrapperVideoEditor implements VideoEditorOld {
 
     private final FFprobe ffprobe;
     private final FFmpegExecutor ffmpegExecutor;
