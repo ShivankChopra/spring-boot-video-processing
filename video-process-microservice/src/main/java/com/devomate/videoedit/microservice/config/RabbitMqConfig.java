@@ -1,8 +1,12 @@
 package com.devomate.videoedit.microservice.config;
 
-import org.springframework.amqp.core.*;
+import org.springframework.amqp.core.Binding;
+import org.springframework.amqp.core.BindingBuilder;
+import org.springframework.amqp.core.DirectExchange;
+import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.config.SimpleRabbitListenerContainerFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,7 +19,7 @@ public class RabbitMqConfig {
     @Value("${rabbitmq.tasks-queue}")
     private String tasksQueueName;
 
-    @Value("${rabbitmq.answers-routing-key}")
+    @Value("${rabbitmq.tasks-routing-key}")
     private String tasksRoutingKey;
 
     @Value("${rabbitmq.answers-queue}")
@@ -40,12 +44,12 @@ public class RabbitMqConfig {
     }
 
     @Bean
-    public Binding tasksBinding(Queue tasksQueue, DirectExchange exchange) {
+    public Binding tasksBinding(@Qualifier("tasksQueue") Queue tasksQueue, DirectExchange exchange) {
         return BindingBuilder.bind(tasksQueue).to(exchange).with(tasksRoutingKey);
     }
 
     @Bean
-    public Binding answersBinding(Queue answersQueue, DirectExchange exchange) {
+    public Binding answersBinding(@Qualifier("answersQueue") Queue answersQueue, DirectExchange exchange) {
         return BindingBuilder.bind(answersQueue).to(exchange).with(answersRoutingKey);
     }
 

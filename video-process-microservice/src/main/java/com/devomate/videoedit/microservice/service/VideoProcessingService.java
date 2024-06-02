@@ -1,29 +1,30 @@
 package com.devomate.videoedit.microservice.service;
 
-import com.devomate.videoedit.library.FFmpegCliWrapperVideoEditor;
-import com.devomate.videoedit.library.VideoEditorOld;
+import com.devomate.videoedit.library.FFmpegVideoEditor;
+import com.devomate.videoedit.library.VideoEditor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class VideoProcessingService {
 
-    @Value("video-editor.ffmpeg-path")
-    private String ffmpegPath;
-
-    @Value("video-editor.ffprobe-path")
-    private String ffprobePath;
-
     // @TODO: autowire using config?
-    private final VideoEditorOld videoEditor;
+    private final VideoEditor videoEditor;
 
-    public VideoProcessingService() throws IOException {
-        videoEditor = new FFmpegCliWrapperVideoEditor(ffmpegPath, ffprobePath);
+    public VideoProcessingService(@Value("${video-editor.ffmpeg-path}") String ffmpegPath, @Value("${video-editor.ffprobe-path}") String ffprobePath) throws IOException {
+        videoEditor = new FFmpegVideoEditor(ffmpegPath, ffprobePath);
     }
 
     public void processVideo(String taskMessage) {
-        videoEditor.convertToLowResolution(taskMessage, taskMessage);
+        Map<VideoEditor.EditAction, VideoEditor.EditActionValue> edits = new HashMap<>();
+
+        edits.put(VideoEditor.EditAction.CONVERT_TO_LOW_RES, null);
+
+        System.out.println("In process video : " + taskMessage);
     }
 }
+
